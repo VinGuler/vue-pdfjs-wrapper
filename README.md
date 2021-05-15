@@ -12,6 +12,31 @@ See the <a href="#example">example</a> below.
 
 `npm install --save vue-pdfjs-wrapper`
 
+Then, you can either install it globally<br />
+In `main.js`:
+
+```javascript
+import Vue from 'vue'
+import VuePdfjsWrapper from 'vue-pdfjs-wrapper'
+// If omitted will use the one present on pdf.js CDN
+const workerSrc = 'path/to/worker'
+Vue.use(VuePdfjsWrapper, { workerSrc })
+```
+
+Or you can install it in a specific component.<br />
+Add this at the top of the components `<script>` tag:
+
+```javascript
+  import { install, VuePdfjsWrapper } from 'vue-pdfjs-wrapper'
+  import Vue from 'vue'
+  install(Vue)
+
+  export default {
+    components: { VuePdfjsWrapper },
+    ...
+  }
+```
+
 # API
 
 ## Props

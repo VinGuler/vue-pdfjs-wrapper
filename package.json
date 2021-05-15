@@ -1,6 +1,6 @@
 {
   "name": "vue-pdfjs-wrapper",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": false,
   "author": {
     "name": "VinGuler",
@@ -13,6 +13,12 @@
   "bugs": {
     "url": "https://github.com/vinguler/vue-pdfjs-wrapper/issues"
   },
+  "main": ".dist/vue-pdf-component.min.js",
+  "files": [
+    "dist/*",
+    "src/*",
+    "*.js"
+  ],
   "scripts": {
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-pdf-component.umd.js",
