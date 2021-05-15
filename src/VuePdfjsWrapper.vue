@@ -1,6 +1,7 @@
 <template>
   <div class="pdf-pages-container" ref="pdf-pages-container">
-    <pdf-page v-for="page in pages"
+    <pdf-page
+      v-for="page in pages"
       :key="'pdf-canvas-layer-' + page.pageNum"
       :page-number="page.pageNum"
       :page="page"

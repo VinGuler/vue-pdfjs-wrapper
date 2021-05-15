@@ -48,7 +48,7 @@ Emitted once the pdf is fully loaded and rendered
 
 ```javascript
 import Vue from 'vue'
-import VuePdfjsWrapper from 'vue-pdfjs-wrapper/src/wrapper'
+import VuePdfjsWrapper from 'vue-pdfjs-wrapper'
 // If omitted will use the one present on pdf.js CDN
 const workerSrc = 'path/to/worker'
 Vue.use(VuePdfjsWrapper, { workerSrc })

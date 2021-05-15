@@ -1,17 +1,17 @@
 import VuePdfjsWrapper from './VuePdfjsWrapper.vue'
 
-
-// Declare install function executed by Vue.use()
-export function install(Vue, options = {}) {
-  if (this.installed) return
-  this.installed = true
-
+function install(Vue, options = {}) {
+  if (install.installed) return
+  install.installed = true
+  
   // Installing pdfjsLib and setting its workerSrc to pdf.js CDN
+  const pdfjsLib = require('pdfjs-dist/es5/build/pdf.js')
   const workerSrc = options.workerSrc || `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`
   pdfjsLib.GlobalWorkerOptions.workerSrc = workerSrc
+  // Making pdfjsLib available globaly
   Object.defineProperty(Vue.prototype, '$PDFJS', { value: pdfjsLib })
 
-  Vue.component('vue-pdfjs-wrapper', VuePdfjsWrapper)
+  // Vue.component('vue-pdfjs-wrapper', VuePdfjsWrapper)
 }
 
 // Create module definition for Vue.use()
@@ -27,4 +27,5 @@ if (GlobalVue) {
   GlobalVue.use(plugin)
 }
 
-export default VuePdfjsWrapper
+export { install, VuePdfjsWrapper }
+export default plugin
