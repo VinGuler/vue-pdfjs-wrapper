@@ -1,47 +1,56 @@
 {
   "name": "vue-pdfjs-wrapper",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "private": false,
   "author": {
     "name": "VinGuler",
     "email": "vinguler@gmail.com"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vinguler/vue-pdfjs-wrapper.git"
+  "scripts": {
+    "build-lib": "vue-cli-service build --target lib --name vue-pdfjs-wrapper index.js",
+    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
+    "build:es": "rollup --config rollup.config.js --format es --file dist/vue-pdf-component.esm.js",
+    "build:umd": "rollup --config rollup.config.js --format umd --file dist/vue-pdf-component.umd.js",
+    "build:unpkg": "rollup --config rollup.config.js --format iife --file dist/vue-pdf-component.min.js",
+    "lint": "vue-cli-service lint"
   },
-  "bugs": {
-    "url": "https://github.com/vinguler/vue-pdfjs-wrapper/issues"
-  },
-  "main": ".dist/vue-pdf-component.min.js",
+  "main": ".dist/vue-pdfjs-wrapper.common.js",
   "files": [
-    "dist/*",
-    "src/*",
+    "dist",
+    "src",
     "*.js"
   ],
-  "scripts": {
-    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
-    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vue-pdf-component.umd.js",
-    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vue-pdf-componentt.esm.js",
-    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vue-pdf-component.min.js"
-  },
   "dependencies": {
     "core-js": "^3.6.5",
     "pdfjs-dist": "^2.7.570",
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "rollup": "^1.17.0",
     "@rollup/plugin-buble": "^0.21.3",
     "@rollup/plugin-commonjs": "^11.1.0",
-    "rollup-plugin-vue": "^5.0.1",
-    "vue": "^2.6.10",
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-service": "~4.5.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "rollup": "^1.17.0",
+    "rollup-plugin-vue": "^5.0.1",
+    "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.11"
+  },
+  "bugs": {
+    "url": "https://github.com/vinguler/vue-pdfjs-wrapper/issues"
+  },
+  "keywords": [
+    "pdf",
+    "pdf.js",
+    "wrapper",
+    "vue",
+    "vue.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vinguler/vue-pdfjs-wrapper.git"
   }
 }

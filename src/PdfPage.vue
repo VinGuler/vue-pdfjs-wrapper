@@ -44,7 +44,6 @@
     },
     methods: {
       async loadPage() {
-        console.log('loading canvas layer')
         const canvas = this.$refs[this.getCanvasID]
         canvas.height = this.viewport.height
         canvas.width = this.viewport.width
@@ -56,7 +55,6 @@
         await this.page.render(renderContext)
       },
       async loadTextLayer() {
-        console.log('loading text layer')
         const div = this.$refs[this.getTextLayerID]
         const textContent = await this.page.getTextContent()
         const textLayer = this.$PDFJS.renderTextLayer({
