@@ -6,6 +6,8 @@
 </template>
 
 <script>
+  const pdfjsLib = require('pdfjs-dist/es5/build/pdf.js')
+
   export default {
     name: 'pdfPage',
     props: {
@@ -23,13 +25,13 @@
       isRenderText: Boolean,
       textLayerID: String
     },
-    data () {
+    data() {
       return {
         viewport: null
       }
     },
     computed: {
-      getPageContainerID () {
+      getPageContainerID() {
         const idString = this.pageContainerID || 'pdf-page-container'
         return idString + '-' + this.pageNumber
       },
@@ -57,7 +59,7 @@
       async loadTextLayer() {
         const div = this.$refs[this.getTextLayerID]
         const textContent = await this.page.getTextContent()
-        const textLayer = this.$PDFJS.renderTextLayer({
+        const textLayer = pdfjsLib.renderTextLayer({
           container: div,
           textContent,
           viewport: this.viewport
@@ -65,7 +67,7 @@
         textLayer._render()
       }
     },
-    created () {
+    created() {
       this.viewport = this.page.getViewport({ scale: this.scale })
     },
     async mounted() {

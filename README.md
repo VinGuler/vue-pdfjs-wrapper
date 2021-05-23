@@ -4,37 +4,28 @@ A simple Vue.js wrapper component for PDF.js.
 
 # Note
 
-Although this component installs `pdfjs-dist`, it is using the worker from pdf.js CDN.<br />
-You can pass the worker src path if you want to use something else.<br />
-See the <a href="#example">example</a> below.
+This component installs and uses `pdfjs-dist`, and loads its worker using the `worker-loader` webpack module.
 
 # Install
 
 `npm install --save vue-pdfjs-wrapper`
 
-Then, you can either install it globally<br />
-In `main.js`:
+Import it into a specific component:<br />
+
+```javascript
+import VuePdfjsWrapper from 'vue-pdfjs-wrapper'
+export default {
+  components: { VuePdfjsWrapper },
+  ...
+}
+```
+
+You can also use it globally using the `{plugin}` export:
 
 ```javascript
 import Vue from 'vue'
-import VuePdfjsWrapper from 'vue-pdfjs-wrapper'
-// If omitted will use the one present on pdf.js CDN
-const workerSrc = 'path/to/worker'
-Vue.use(VuePdfjsWrapper, { workerSrc })
-```
-
-Or you can install it in a specific component.<br />
-Add this at the top of the components `<script>` tag:
-
-```javascript
-  import { install, VuePdfjsWrapper } from 'vue-pdfjs-wrapper'
-  import Vue from 'vue'
-  install(Vue)
-
-  export default {
-    components: { VuePdfjsWrapper },
-    ...
-  }
+import { plugin } from 'vue-pdfjs-wrapper'
+Vue.use(plugin)
 ```
 
 # API
@@ -69,16 +60,6 @@ Emitted once the pdf is fully loaded and rendered
 
 # Example
 
-## main.js
-
-```javascript
-import Vue from 'vue'
-import VuePdfjsWrapper from 'vue-pdfjs-wrapper'
-// If omitted will use the one present on pdf.js CDN
-const workerSrc = 'path/to/worker'
-Vue.use(VuePdfjsWrapper, { workerSrc })
-```
-
 ## Component.vue
 
 ```javascript
@@ -94,7 +75,10 @@ Vue.use(VuePdfjsWrapper, { workerSrc })
 </template>
 
 <script>
+  import VuePdfjsWrapper from 'vue-pdfjs-wrapper'
+
   export default {
+    components: { VuePdfjsWrapper },
     data() {
       return {
         src: 'http://url/to/file.pdf',

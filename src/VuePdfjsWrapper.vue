@@ -12,6 +12,14 @@
 </template>
 
 <script>
+  // Loading the worker using webpack 'worker-lodaer' module 
+  import workerLoader from 'worker-loader!pdfjs-dist/es5/build/pdf.worker.js'
+  const worker = workerLoader()
+  // Using pdfjs node_module
+  const pdfjsLib = require('pdfjs-dist/es5/build/pdf.js')
+  pdfjsLib.GlobalWorkerOptions.workerPort = worker
+
+  // Container for each pdf page
   import pdfPage from './PdfPage.vue'
 
   export default {
@@ -24,7 +32,6 @@
     },
     data() {
       return {
-        doc: null,
         pages: []
       }
     },
@@ -35,9 +42,8 @@
           return
         }
         this.pages = []
-        const doc = await this.$PDFJS.getDocument(this.pdfSrc).promise
-        this.doc = doc
-        const pagesAmount = this.doc.numPages
+        const doc = await pdfjsLib.getDocument(this.pdfSrc).promise
+        const pagesAmount = doc.numPages
         for (let pageNumber = 1; pageNumber <= pagesAmount; pageNumber++) {
           const page = await doc.getPage(pageNumber)
           page.pageNum = pageNumber
@@ -49,7 +55,7 @@
     watch: {
       async pdfSrc(value) {
         if (value) {
-          this.loadDocument()
+          await this.loadDocument()
         }
       },
       async scale() {
@@ -59,9 +65,9 @@
         await this.loadDocument()
       }
     },
-    created() {
+    async created() {
       if (this.pdfSrc) {
-        this.loadDocument()
+        await this.loadDocument()
       }
     }
   }

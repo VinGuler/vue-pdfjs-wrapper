@@ -1,6 +1,6 @@
 {
   "name": "vue-pdfjs-wrapper",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "private": false,
   "author": {
     "name": "VinGuler",
@@ -23,7 +23,8 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "pdfjs-dist": "^2.7.570",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "worker-loader": "^3.0.8"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
