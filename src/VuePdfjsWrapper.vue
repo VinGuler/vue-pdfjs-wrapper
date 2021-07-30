@@ -28,6 +28,8 @@
     props: {
       pdfSrc: null,
       scale: { type: Number, default: 1 },
+      currentPage: { type: Number, default: 1 },
+      isSinglePage: Boolean,
       isRenderText: Boolean
     },
     data() {
@@ -44,30 +46,46 @@
         this.pages = []
         const doc = await pdfjsLib.getDocument(this.pdfSrc).promise
         const pagesAmount = doc.numPages
-        for (let pageNumber = 1; pageNumber <= pagesAmount; pageNumber++) {
-          const page = await doc.getPage(pageNumber)
-          page.pageNum = pageNumber
+        if (this.isSinglePage) {
+          this.pages = []
+          const page = await doc.getPage(this.currentPage)
+          page.pageNum = this.currentPage
           this.pages.push(page)
+        } else {
+          for (let pageNumber = 1; pageNumber <= pagesAmount; pageNumber++) {          
+            const page = await doc.getPage(pageNumber)
+            page.pageNum = pageNumber
+            this.pages.push(page)
+          }
         }
-        this.$emit('loaded')
+
+        this.$emit('loaded', { pagesAmount })
       }
     },
     watch: {
-      async pdfSrc(value) {
+      pdfSrc(value) {
         if (value) {
-          await this.loadDocument()
+          this.loadDocument()
         }
       },
-      async scale() {
-        await this.loadDocument()
+      currentPage() {
+        if (this.isSinglePage) {
+          this.loadDocument()
+        }
       },
-      async isRenderText() {
-        await this.loadDocument()
+      scale() {
+        this.loadDocument()
+      },
+      isSinglePage() {
+        this.loadDocument()
+      },
+      isRenderText() {
+        this.loadDocument()
       }
     },
-    async created() {
+    created() {
       if (this.pdfSrc) {
-        await this.loadDocument()
+        this.loadDocument()
       }
     }
   }
